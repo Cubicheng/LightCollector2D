@@ -49,7 +49,7 @@ public class Player : MonoBehaviour {
         }
         if ((Input.GetKeyDown(KeyCode.W)|| Input.GetKeyDown(KeyCode.Space)) && isGrounded) {
             Jump();
-        }else if (Input.GetKeyDown(KeyCode.W) && CanAirJump()) {
+        }else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && CanAirJump()) {
             AirJump();
         }
         if (Input.GetKeyDown(KeyCode.J)) {
@@ -61,10 +61,9 @@ public class Player : MonoBehaviour {
     }
 
     private void Throw() {
-        Debug.Log(facingValue);
         Instantiate(
             lightBall,
-            transform.position+new Vector3(facingValue* coll.bounds.size.x, coll.bounds.size.y/2, 0),
+            transform.position,
             Quaternion.identity
         );
     }
@@ -146,7 +145,7 @@ public class Player : MonoBehaviour {
         return hit.collider != null;
     }
 
-    public float GetLightBallHorizontalSpeed() {
-        return facingValue * speed;
+    public float GetFacingValue() {
+        return facingValue;
     }
 }

@@ -75,7 +75,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 5
+  m_PointLightOuterRadius: 10
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -128,8 +128,8 @@ MonoBehaviour:
   light2d: {fileID: 2620894611143140484}
   rb: {fileID: 0}
   player: {fileID: 2652428180357089071, guid: 1dd1ae18afbcffc4b879ef20dfde360b, type: 3}
-  lightOuterRadiusFadingSpeed: 2
-  force: 10
+  lightOuterRadiusFadingSpeed: 1
+  force: 15
 --- !u!58 &6576586654363294431
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -6,19 +6,31 @@ using UnityEngine.Rendering.Universal;
 public class LightBall : MonoBehaviour
 {
     [SerializeField] private Light2D light2d;
-    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Player player;
     [SerializeField] private float lightOuterRadiusFadingSpeed = 2.0f;
-    [SerializeField] private float force = 10.0f;
+    [SerializeField] private float force = 15.0f;
 
 
     private void Awake() {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Start()
     {
-        float lightBallHorizontalSpeed = player.GetLightBallHorizontalSpeed();
-        rb.velocity = new Vector2(Mathf.Sign(lightBallHorizontalSpeed) * force / 1.7f+ lightBallHorizontalSpeed, force / 1.7f);
+        float facingValue = player.GetFacingValue();
+        rb.velocity = new Vector2(facingValue * force / 1.7f, force / 1.7f);
+    }
+
+    private void FixedUpdate() {
+        UpdateLight();
+    }
+
+    private void UpdateLight() {
+        light2d.pointLightOuterRadius -= lightOuterRadiusFadingSpeed * Time.fixedDeltaTime;
+        if (light2d.pointLightOuterRadius <= 0) {
+            light2d.pointLightOuterRadius = 0;
+            Destroy(gameObject);
+        }
     }
 }
