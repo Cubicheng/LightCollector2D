@@ -30,6 +30,7 @@ public class Player : MonoBehaviour {
     private bool isAirJump = false;
     private bool isPika = false;
     private bool isThrow = false;
+    private bool isLand = false;
 
     private Rigidbody2D rb;
     private BoxCollider2D coll;
@@ -97,6 +98,7 @@ public class Player : MonoBehaviour {
             airJumpCount = 0;
             animator.SetBool(AnimatorParams.IsJump, isJump = false);
             animator.SetBool(AnimatorParams.IsAirJump, isAirJump = false);
+            animator.SetBool(AnimatorParams.IsLand,isLand = true);
         }
         Move();
         UpdateLight();
@@ -116,6 +118,7 @@ public class Player : MonoBehaviour {
     private void Jump() {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         animator.SetBool(AnimatorParams.IsJump,isJump = true);
+        animator.SetBool(AnimatorParams.IsLand, isLand = false);
     }
 
     private void AirJump() {
@@ -123,6 +126,7 @@ public class Player : MonoBehaviour {
         float preservedXVelocity = rb.velocity.x * 0.8f;
         rb.velocity = new Vector2(preservedXVelocity, airJumpForce);
         animator.SetBool(AnimatorParams.IsAirJump,isAirJump = true);
+        animator.SetBool(AnimatorParams.IsLand, isLand = false);
     }
 
     private void Move() {
