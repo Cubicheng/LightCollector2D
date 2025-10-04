@@ -7,7 +7,7 @@ public class LightBall : MonoBehaviour
 {
     [SerializeField] private Light2D light2d;
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Player player;
+    [SerializeField] private GameObject player;
     [SerializeField] private float lightOuterRadiusFadingSpeed = 2.0f;
     [SerializeField] private float force = 15.0f;
 
@@ -18,7 +18,10 @@ public class LightBall : MonoBehaviour
 
     void Start()
     {
-        float facingValue = player.GetFacingValue();
+        if (player == null) {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+        float facingValue = player.GetComponent<Player>().GetFacingValue();
         rb.velocity = new Vector2(facingValue * force / 1.7f, force / 1.7f);
     }
 

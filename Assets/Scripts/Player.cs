@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private float pikaDuration = 0.5f;
     [SerializeField] private GameObject holyLight;
     [SerializeField] private GameObject lightBall;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     private bool isGrounded;
     private int airJumpCount;
@@ -46,6 +47,11 @@ public class Player : MonoBehaviour {
         horizontalValue = Input.GetAxisRaw("Horizontal");
         if (horizontalValue!=0 && horizontalValue != facingValue) {
             facingValue = horizontalValue;
+            if (facingValue==1) {
+                spriteRenderer.flipX = false;
+            } else {
+                spriteRenderer.flipX = true;
+            }
         }
         if ((Input.GetKeyDown(KeyCode.W)|| Input.GetKeyDown(KeyCode.Space)) && isGrounded) {
             Jump();
@@ -92,7 +98,6 @@ public class Player : MonoBehaviour {
             animator.SetBool(AnimatorParams.IsJump, isJump = false);
             animator.SetBool(AnimatorParams.IsAirJump, isAirJump = false);
         }
-
         Move();
         UpdateLight();
     }

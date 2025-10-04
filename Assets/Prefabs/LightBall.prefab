@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   light2d: {fileID: 2620894611143140484}
   rb: {fileID: 0}
-  player: {fileID: 2652428180357089071, guid: 1dd1ae18afbcffc4b879ef20dfde360b, type: 3}
+  player: {fileID: 0}
   lightOuterRadiusFadingSpeed: 1
   force: 15
 --- !u!58 &6576586654363294431
