@@ -36,7 +36,6 @@ public class Player : MonoBehaviour {
     private bool isAirJump = false;
     private bool isPika = false;
     private bool isThrow = false;
-    private bool isLand = false;
     private bool isHeal = false;
     private bool isDead = false;
 
@@ -57,9 +56,6 @@ public class Player : MonoBehaviour {
     }
 
     private void Update() {
-        if (!canMove) {
-            return;
-        }
         horizontalValue = Input.GetAxisRaw("Horizontal");
         if (horizontalValue!=0 && horizontalValue != facingValue) {
             facingValue = horizontalValue;
@@ -95,9 +91,11 @@ public class Player : MonoBehaviour {
     }
 
     private void Pika() {
-        if (isPika || isWalk || isJump|| isAirJump || isThrow) {
+        if (isPika || isJump|| isAirJump || isThrow) {
             return;
         }
+        canMove = false;
+        rb.velocity = new Vector2(0, 0);
         light2d.pointLightOuterRadius -= pikaCost;
         animator.SetBool(AnimatorParams.IsPika, isPika = true);
         holyLight.SetActive(isPika);
@@ -108,9 +106,13 @@ public class Player : MonoBehaviour {
         yield return new WaitForSeconds(delayTime);
         animator.SetBool(AnimatorParams.IsPika, isPika = false);
         holyLight.SetActive(isPika);
+        canMove = true;
     }
 
     private void FixedUpdate() {
+        if (!canMove) {
+            return;
+        }
         bool wasGrounded = isGrounded;
         isGrounded = CheckGrounded();
 
@@ -118,7 +120,6 @@ public class Player : MonoBehaviour {
             airJumpCount = 0;
             animator.SetBool(AnimatorParams.IsJump, isJump = false);
             animator.SetBool(AnimatorParams.IsAirJump, isAirJump = false);
-            animator.SetBool(AnimatorParams.IsLand,isLand = true);
         }
         Move();
         UpdateLight();
@@ -149,7 +150,6 @@ public class Player : MonoBehaviour {
     private void Jump() {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         animator.SetBool(AnimatorParams.IsJump,isJump = true);
-        animator.SetBool(AnimatorParams.IsLand, isLand = false);
     }
 
     private void AirJump() {
@@ -157,11 +157,11 @@ public class Player : MonoBehaviour {
         float preservedXVelocity = rb.velocity.x * 0.8f;
         rb.velocity = new Vector2(preservedXVelocity, airJumpForce);
         animator.SetBool(AnimatorParams.IsAirJump,isAirJump = true);
-        animator.SetBool(AnimatorParams.IsLand, isLand = false);
     }
 
     private void Move() {
         if (isDead || !canMove) {
+            rb.velocity = new Vector2(0, 0);
             return;
         }
         float xVal = horizontalValue * speed * Time.deltaTime;
@@ -232,7 +232,6 @@ public class Player : MonoBehaviour {
     }
     private void ResetAllAnimatorStates() {
         animator.SetBool(AnimatorParams.IsDead, isDead = false);
-        animator.SetBool(AnimatorParams.IsLand, isLand = false);
         animator.SetBool(AnimatorParams.IsPika, isPika = false);
         animator.SetBool(AnimatorParams.IsWalk, isWalk = false);
         animator.SetBool(AnimatorParams.IsAirJump, isAirJump = false);
