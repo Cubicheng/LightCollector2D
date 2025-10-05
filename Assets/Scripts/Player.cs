@@ -43,6 +43,10 @@ public class Player : MonoBehaviour {
     private BoxCollider2D coll;
     [SerializeField] private Light2D light2d;
 
+    public Light2D GetLight2D() {
+        return light2d;
+    }
+
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;

@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private GameObject player;
 
     private List<GameObject> collectableBallList = new List<GameObject>();
+    private List<GameObject> BeetleList = new List<GameObject>();
+
     private void Awake() {
         if (Instance == null) {
             Instance = this;
@@ -23,6 +25,12 @@ public class GameManager : MonoBehaviour
     public void RegisterBall(GameObject ball) {
         if (!collectableBallList.Contains(ball)) {
             collectableBallList.Add(ball);
+        }
+    }
+
+    public void RegisterBeetle(GameObject beetle) {
+        if (!BeetleList.Contains(beetle)) {
+            BeetleList.Add(beetle);
         }
     }
 

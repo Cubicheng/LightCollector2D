@@ -16,7 +16,7 @@ TagManager:
   - BackGround
   - LightBall
   - Ant
-  - 
+  - Beetle
   - 
   - 
   - 
@@ -56,6 +56,9 @@ TagManager:
     locked: 0
   - name: Ant
     uniqueID: 3075159823
+    locked: 0
+  - name: Beetle
+    uniqueID: 1765590649
     locked: 0
   - name: LightBall
     uniqueID: 737845291
