@@ -15,7 +15,7 @@ TagManager:
   - Player
   - BackGround
   - LightBall
-  - 
+  - Ant
   - 
   - 
   - 
@@ -53,6 +53,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2374008319
+    locked: 0
+  - name: Ant
+    uniqueID: 3075159823
     locked: 0
   - name: LightBall
     uniqueID: 737845291

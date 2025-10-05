@@ -29,6 +29,8 @@ public class Player : MonoBehaviour {
     private float horizontalValue;
     private float facingValue = 1;
 
+    private bool canMove = true;
+
     private bool isWalk = false;
     private bool isJump = false;
     private bool isAirJump = false;
@@ -55,6 +57,9 @@ public class Player : MonoBehaviour {
     }
 
     private void Update() {
+        if (!canMove) {
+            return;
+        }
         horizontalValue = Input.GetAxisRaw("Horizontal");
         if (horizontalValue!=0 && horizontalValue != facingValue) {
             facingValue = horizontalValue;
@@ -156,6 +161,9 @@ public class Player : MonoBehaviour {
     }
 
     private void Move() {
+        if (isDead || !canMove) {
+            return;
+        }
         float xVal = horizontalValue * speed * Time.deltaTime;
         Vector2 targetVelocity = new Vector2(xVal, rb.velocity.y);
         rb.velocity = targetVelocity;
@@ -192,6 +200,7 @@ public class Player : MonoBehaviour {
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
         animator.SetBool(AnimatorParams.IsDead, isDead = true);
+        canMove = false;
 
         StartCoroutine(DeadAfterJob(deadWaitingTime));
     }
@@ -219,6 +228,7 @@ public class Player : MonoBehaviour {
     private IEnumerator RestoreGravityNextFrame() {
         yield return new WaitForFixedUpdate();
         rb.gravityScale = gravityScale;
+        canMove = true;
     }
     private void ResetAllAnimatorStates() {
         animator.SetBool(AnimatorParams.IsDead, isDead = false);

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CollectableBall : MonoBehaviour
 {
-    private void Awake() {
-        GameManager.Instance.RegisterBall(this.gameObject);
+    private void Start() {
+        GameManager.Instance.RegisterBall(gameObject);
     }
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
