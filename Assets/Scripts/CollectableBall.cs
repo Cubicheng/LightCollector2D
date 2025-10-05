@@ -4,23 +4,13 @@ using UnityEngine;
 
 public class CollectableBall : MonoBehaviour
 {
-    private GameObject player;
-
-    private void Start() {
-        if (player == null) {
-            player = GameObject.FindGameObjectWithTag("Player");
-        }
+    private void Awake() {
+        GameManager.Instance.RegisterBall(this.gameObject);
     }
-
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("enter");
         if (other.CompareTag("Player")) {
-            CollectCoin();
+            other.GetComponent<Player>().OnCollect();
+            gameObject.SetActive(false);
         }
-    }
-
-    public void CollectCoin() {
-        player.GetComponent<Player>().OnCollect();
-        Destroy(gameObject);
     }
 }

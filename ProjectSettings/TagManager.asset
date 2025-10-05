@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CollectableBall
   layers:
   - Default
   - TransparentFX
@@ -46,6 +47,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 673082017
+    locked: 0
+  - name: CheckPoint
+    uniqueID: 2718632231
     locked: 0
   - name: Player
     uniqueID: 2374008319

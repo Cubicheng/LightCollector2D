@@ -22,7 +22,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private float lightBallCost = 0.5f;
     [SerializeField] private float pikaCost = 0.5f;
     [SerializeField] private float maxLightOuterRadius = 5.0f;
-
+    [SerializeField] private float deadWaitingTime = 1.0f;
 
     private bool isGrounded;
     private int airJumpCount;
@@ -35,6 +35,8 @@ public class Player : MonoBehaviour {
     private bool isPika = false;
     private bool isThrow = false;
     private bool isLand = false;
+    private bool isHeal = false;
+    private bool isDead = false;
 
     private Rigidbody2D rb;
     private BoxCollider2D coll;
@@ -118,8 +120,16 @@ public class Player : MonoBehaviour {
         if (isPika) {
             return;
         }
-        light2d.pointLightOuterRadius -= lightOuterRadiusFadingSpeed * Time.fixedDeltaTime;
+        if (!isHeal) {
+            light2d.pointLightOuterRadius -= lightOuterRadiusFadingSpeed * Time.fixedDeltaTime;
+        } else {
+            light2d.pointLightOuterRadius += lightOuterRadiusFadingSpeed * Time.fixedDeltaTime;
+            if (light2d.pointLightOuterRadius > maxLightOuterRadius) {
+                light2d.pointLightOuterRadius = maxLightOuterRadius;
+            }
+        }
         if (light2d.pointLightOuterRadius <= 0) {
+            OnDead();
             light2d.pointLightOuterRadius = 0;
         }
     }
@@ -173,5 +183,25 @@ public class Player : MonoBehaviour {
 
     public void OnCollect() {
         light2d.pointLightOuterRadius = maxLightOuterRadius;
+    }
+
+    public void OnDead() {
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+        animator.SetBool(AnimatorParams.IsDead, isDead = true);
+
+        StartCoroutine(DeadAfterJob(deadWaitingTime));
+    }
+
+    IEnumerator DeadAfterJob(float delayTime) {
+        yield return new WaitForSeconds(delayTime);
+        animator.SetBool(AnimatorParams.IsDead, isDead = false);
+        light2d.pointLightOuterRadius = maxLightOuterRadius;
+        rb.gravityScale = gravityScale;
+        GameManager.Instance.OnPlayerDead();
+    }
+
+    public void SetHeal(bool value) {
+        isHeal = value;
     }
 }
