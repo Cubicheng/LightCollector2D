@@ -22,7 +22,9 @@ public class LightBall : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player");
         }
         float facingValue = player.GetComponent<Player>().GetFacingValue();
-        rb.velocity = new Vector2(facingValue * force / 1.7f, force / 1.7f);
+        float playerXSpeed = player.GetComponent<Player>().GetHorizontalSpeed();
+        Debug.Log("playerXSpeed" + playerXSpeed);
+        rb.velocity = new Vector2(facingValue * force / 1.7f + playerXSpeed/50.0f, force / 1.7f);
     }
 
     private void FixedUpdate() {

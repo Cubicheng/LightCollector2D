@@ -37,12 +37,15 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerDead() {
         ResetCollectableBall();
-        player.transform.position = currentRespawnPoint;
     }
 
     private void ResetCollectableBall() {
         foreach (GameObject obj in collectableBallList) {
             obj.gameObject.SetActive(true);
         }
+    }
+
+    public Vector3 GetCurrentRespawnPoint() {
+        return currentRespawnPoint;
     }
 }

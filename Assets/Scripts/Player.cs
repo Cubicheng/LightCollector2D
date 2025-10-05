@@ -78,6 +78,9 @@ public class Player : MonoBehaviour {
     }
 
     private void Throw() {
+        if (isDead) {
+            return;
+        }
         light2d.pointLightOuterRadius -= lightBallCost;
         Instantiate(
             lightBall,
@@ -195,13 +198,41 @@ public class Player : MonoBehaviour {
 
     IEnumerator DeadAfterJob(float delayTime) {
         yield return new WaitForSeconds(delayTime);
-        animator.SetBool(AnimatorParams.IsDead, isDead = false);
-        light2d.pointLightOuterRadius = maxLightOuterRadius;
-        rb.gravityScale = gravityScale;
+        animator.Play("PlayerIdle");
         GameManager.Instance.OnPlayerDead();
+        PlayerInit();
     }
 
+    private void PlayerInit() {
+        StopAllCoroutines();
+
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+        transform.position = GameManager.Instance.GetCurrentRespawnPoint();
+
+        light2d.pointLightOuterRadius = maxLightOuterRadius;
+        ResetAllAnimatorStates();
+
+        StartCoroutine(RestoreGravityNextFrame());
+    }
+
+    private IEnumerator RestoreGravityNextFrame() {
+        yield return new WaitForFixedUpdate();
+        rb.gravityScale = gravityScale;
+    }
+    private void ResetAllAnimatorStates() {
+        animator.SetBool(AnimatorParams.IsDead, isDead = false);
+        animator.SetBool(AnimatorParams.IsLand, isLand = false);
+        animator.SetBool(AnimatorParams.IsPika, isPika = false);
+        animator.SetBool(AnimatorParams.IsWalk, isWalk = false);
+        animator.SetBool(AnimatorParams.IsAirJump, isAirJump = false);
+        animator.SetBool(AnimatorParams.IsJump, isJump = false);
+    }
     public void SetHeal(bool value) {
         isHeal = value;
+    }
+
+    public float GetHorizontalSpeed() {
+        return horizontalValue * speed;
     }
 }
