@@ -60,6 +60,9 @@ public class Player : MonoBehaviour {
     }
 
     private void Update() {
+        if (isDead) {
+            return;
+        }
         horizontalValue = Input.GetAxisRaw("Horizontal");
         if (horizontalValue!=0 && horizontalValue != facingValue) {
             facingValue = horizontalValue;
@@ -202,9 +205,11 @@ public class Player : MonoBehaviour {
 
     public void OnDead() {
         rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
         rb.gravityScale = 0;
         animator.SetBool(AnimatorParams.IsDead, isDead = true);
         canMove = false;
+        horizontalValue = 0;
 
         StartCoroutine(DeadAfterJob(deadWaitingTime));
     }
