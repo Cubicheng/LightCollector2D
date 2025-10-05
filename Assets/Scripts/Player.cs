@@ -19,6 +19,10 @@ public class Player : MonoBehaviour {
     [SerializeField] private GameObject holyLight;
     [SerializeField] private GameObject lightBall;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private float lightBallCost = 0.5f;
+    [SerializeField] private float pikaCost = 0.5f;
+    [SerializeField] private float maxLightOuterRadius = 5.0f;
+
 
     private bool isGrounded;
     private int airJumpCount;
@@ -42,6 +46,10 @@ public class Player : MonoBehaviour {
         rb.freezeRotation = true;
 
         coll = GetComponent<BoxCollider2D>();
+    }
+
+    private void Start() {
+        light2d.pointLightOuterRadius = maxLightOuterRadius;
     }
 
     private void Update() {
@@ -68,6 +76,7 @@ public class Player : MonoBehaviour {
     }
 
     private void Throw() {
+        light2d.pointLightOuterRadius -= lightBallCost;
         Instantiate(
             lightBall,
             transform.position,
@@ -79,6 +88,7 @@ public class Player : MonoBehaviour {
         if (isPika || isWalk || isJump|| isAirJump || isThrow) {
             return;
         }
+        light2d.pointLightOuterRadius -= pikaCost;
         animator.SetBool(AnimatorParams.IsPika, isPika = true);
         holyLight.SetActive(isPika);
         StartCoroutine(ResetPikaAfterDelay(pikaDuration));
@@ -105,6 +115,9 @@ public class Player : MonoBehaviour {
     }
 
     private void UpdateLight() {
+        if (isPika) {
+            return;
+        }
         light2d.pointLightOuterRadius -= lightOuterRadiusFadingSpeed * Time.fixedDeltaTime;
         if (light2d.pointLightOuterRadius <= 0) {
             light2d.pointLightOuterRadius = 0;
@@ -156,5 +169,9 @@ public class Player : MonoBehaviour {
 
     public float GetFacingValue() {
         return facingValue;
+    }
+
+    public void OnCollect() {
+        light2d.pointLightOuterRadius = maxLightOuterRadius;
     }
 }
