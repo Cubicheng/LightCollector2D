@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CollectableBall : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
+
     private void Start() {
         GameManager.Instance.RegisterBall(gameObject);
     }
@@ -12,5 +14,10 @@ public class CollectableBall : MonoBehaviour
             other.GetComponent<Player>().OnCollect();
             gameObject.SetActive(false);
         }
+    }
+
+    public void Respawn() {
+        gameObject.SetActive(true);
+        animator.SetTrigger(AnimatorParams.CollectableBallRespawn);
     }
 }

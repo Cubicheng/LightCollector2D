@@ -53,7 +53,8 @@ public class GameManager : MonoBehaviour {
     public void ResetCollectableBall() {
         foreach (GameObject obj in collectableBallList) {
             if (obj != null) {
-                obj.gameObject.SetActive(true);
+                obj.SetActive(false);
+                obj.GetComponent<CollectableBall>().Respawn();
             }
         }
     }

@@ -6,10 +6,12 @@ public class LightBall : MonoBehaviour {
     [SerializeField] private Light2D light2d;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameObject player;
-    [SerializeField] private float lightOuterRadiusFadingSpeed = 2.0f;
+    [SerializeField] private float lifeDuration = 5.0f;
     [SerializeField] private float force = 15.0f;
 
     private List<Beetle> allBeetles = new List<Beetle>();
+
+    private float duration = 0.0f;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -46,8 +48,8 @@ public class LightBall : MonoBehaviour {
     }
 
     private void UpdateLight() {
-        light2d.pointLightOuterRadius -= lightOuterRadiusFadingSpeed * Time.fixedDeltaTime;
-        if (light2d.pointLightOuterRadius <= 0) {
+        duration += Time.fixedDeltaTime;
+        if (duration>=lifeDuration) {
             // 销毁前从所有甲虫中移除光源
             UnregisterFromAllBeetles();
             Destroy(gameObject);
