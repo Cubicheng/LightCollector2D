@@ -6,6 +6,7 @@ public static class SceneLoader {
         dev0,
         dev1,
         dev2,
+        devHard,
         Loading
     };
 

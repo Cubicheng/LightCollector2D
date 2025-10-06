@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/dev2.unity
     guid: f007af417c9d0e44f86f42ecc1cf77c6
   - enabled: 1
+    path: Assets/Scenes/devHard.unity
+    guid: 9970aae13d605f64cae9efc3741789a9
+  - enabled: 1
     path: Assets/Scenes/Loading.unity
     guid: 6059f595010c43947ac35e9c7ecbe63c
   m_configObjects: {}
