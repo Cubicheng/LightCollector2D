@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3187922885190117177}
   - component: {fileID: 2652428180357089071}
   - component: {fileID: 4081260259912848663}
+  - component: {fileID: 6609607530952317181}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -106,6 +107,12 @@ MonoBehaviour:
   holyLight: {fileID: 0}
   lightBall: {fileID: 3673002735111797810, guid: f87eef8efd1028047aaad06216653f13, type: 3}
   spriteRenderer: {fileID: 5471500635450739332}
+  lightBallCost: 0.5
+  pikaCost: 0.5
+  maxLightOuterRadius: 5
+  deadWaitingTime: 1
+  hasThrowSkill: 0
+  hasPikaSkill: 0
   light2d: {fileID: 5133642392717540412}
 --- !u!50 &4081260259912848663
 Rigidbody2D:
@@ -134,6 +141,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6609607530952317181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6097052168212939437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 218f91dcb83134b4586cf0f1ef3cb5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DELTA_TIME: 0.2
 --- !u!1 &7965418270680552412
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,8 +227,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1920958977
-  m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingLayer: 4
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1449026629, guid: 6202fef42166eb44c8cf98a250304e77, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -129,6 +129,7 @@ public class Beetle : MonoBehaviour {
         // 禁用物理组件，因为我们使用Transform直接移动
         rb.isKinematic = true;
         rb.velocity = Vector2.zero;
+        SoundManager.Instance.OnBeetleMove();
     }
 
     // 可视化检测范围（显示每个光源的检测范围）

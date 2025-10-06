@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
     private void Awake() {
         if (Instance == null) {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 如果需要跨场景保持
+            DontDestroyOnLoad(gameObject);
         } else {
             Destroy(gameObject);
         }

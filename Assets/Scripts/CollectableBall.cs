@@ -5,7 +5,6 @@ using UnityEngine;
 public class CollectableBall : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-
     private void Start() {
         GameManager.Instance.RegisterBall(gameObject);
     }

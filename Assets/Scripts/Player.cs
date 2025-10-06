@@ -7,6 +7,8 @@ using System;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Player : MonoBehaviour {
+    public static Player Instance { get; private set; }
+
     [SerializeField] private float speed = 500f;
     [SerializeField] private float jumpForce = 8f;
     [SerializeField] private float gravityScale = 3f;
@@ -35,13 +37,11 @@ public class Player : MonoBehaviour {
     private bool isJump = false;
     private bool isAirJump = false;
     private bool isPika = false;
-    private bool isThrow = false;
     private bool isHeal = false;
     private bool isDead = false;
 
     [SerializeField] private bool hasThrowSkill = false;
     [SerializeField] private bool hasPikaSkill = false;
-
     public int GetMaxAirJumpCount() {
         return airJumpCount;
     }
@@ -75,6 +75,11 @@ public class Player : MonoBehaviour {
     }
 
     private void Awake() {
+        if (Instance == null) {
+            Instance = this;
+        } else {
+            Destroy(gameObject);
+        }
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale;
         rb.freezeRotation = true;
@@ -125,15 +130,18 @@ public class Player : MonoBehaviour {
             transform.position,
             Quaternion.identity
         );
+        SoundManager.Instance.OnThrowBall();
     }
 
     private void Pika() {
+        Debug.Log(hasPikaSkill);
         if (!hasPikaSkill) {
             return;
         }
-        if (isPika || isJump|| isAirJump || isThrow) {
+        if (isPika || isJump|| isAirJump) {
             return;
         }
+        SoundManager.Instance.OnFlash();
         canMove = false;
         rb.velocity = new Vector2(0, 0);
         light2d.pointLightOuterRadius -= pikaCost;
@@ -160,6 +168,7 @@ public class Player : MonoBehaviour {
             airJumpCount = 0;
             animator.SetBool(AnimatorParams.IsJump, isJump = false);
             animator.SetBool(AnimatorParams.IsAirJump, isAirJump = false);
+            SoundManager.Instance.PlayFootstepSound();
         }
         Move();
         UpdateLight();
@@ -190,6 +199,7 @@ public class Player : MonoBehaviour {
     private void Jump() {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         animator.SetBool(AnimatorParams.IsJump,isJump = true);
+        SoundManager.Instance.OnJump();
     }
 
     private void AirJump() {
@@ -197,6 +207,7 @@ public class Player : MonoBehaviour {
         float preservedXVelocity = rb.velocity.x * 0.8f;
         rb.velocity = new Vector2(preservedXVelocity, airJumpForce);
         animator.SetBool(AnimatorParams.IsAirJump,isAirJump = true);
+        SoundManager.Instance.OnJump();
     }
 
     private void Move() {
@@ -207,7 +218,7 @@ public class Player : MonoBehaviour {
         float xVal = horizontalValue * speed * Time.deltaTime;
         Vector2 targetVelocity = new Vector2(xVal, rb.velocity.y);
         rb.velocity = targetVelocity;
-        animator.SetBool(AnimatorParams.IsWalk, xVal != 0);
+        animator.SetBool(AnimatorParams.IsWalk, isWalk = (xVal != 0));
     }
     private bool CheckGrounded() {
         float extraHeight = 0.1f;
@@ -234,6 +245,7 @@ public class Player : MonoBehaviour {
 
     public void OnCollect() {
         light2d.pointLightOuterRadius = maxLightOuterRadius;
+        SoundManager.Instance.OnCollect();
     }
 
     public void OnDead() {
@@ -243,6 +255,7 @@ public class Player : MonoBehaviour {
         animator.SetBool(AnimatorParams.IsDead, isDead = true);
         canMove = false;
         horizontalValue = 0;
+        SoundManager.Instance.OnDead();
 
         StartCoroutine(DeadAfterJob(deadWaitingTime));
     }
@@ -285,5 +298,16 @@ public class Player : MonoBehaviour {
 
     public float GetHorizontalSpeed() {
         return horizontalValue * speed;
+    }
+
+    public bool IsWalk() {
+        return isWalk;
+    }
+
+    public bool IsGround() {
+        return isGrounded;
+    }
+    public bool IsDead() {
+        return isDead;
     }
 }
