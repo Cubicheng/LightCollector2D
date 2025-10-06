@@ -47,7 +47,6 @@ public class Beetle : MonoBehaviour {
         rb.velocity = Vector2.zero;
         transform.rotation = Quaternion.identity;
         transform.position = initialPosition;
-        Debug.Log("Beetle reset to initial position");
     }
 
     void Update() {
@@ -69,7 +68,6 @@ public class Beetle : MonoBehaviour {
     public void AddLightToDetection(Light2D light) {
         if (light != null && !trackedLights.Contains(light)) {
             trackedLights.Add(light);
-            Debug.Log($"Added light: {light.name}, Outer Radius: {GetLightRadius(light)}");
         }
     }
 
@@ -77,7 +75,6 @@ public class Beetle : MonoBehaviour {
     public void RemoveLightFromDetection(Light2D light) {
         if (trackedLights.Contains(light)) {
             trackedLights.Remove(light);
-            Debug.Log($"Removed light: {light.name}");
         }
     }
 
@@ -85,7 +82,6 @@ public class Beetle : MonoBehaviour {
     bool CheckTrackedLights() {
         foreach (var light in trackedLights) {
             if (light != null && light.isActiveAndEnabled && CheckSingleLight(light)) {
-                Debug.Log($"Light {light.name} triggered fall");
                 return true;
             }
         }
@@ -98,7 +94,6 @@ public class Beetle : MonoBehaviour {
         float lightRadius = GetLightRadius(light);
         bool isInRange = distance <= lightRadius;
 
-        Debug.Log($"Light: {light.name}, Distance: {distance}, Light Radius: {lightRadius}, In Range: {isInRange}");
         return isInRange;
     }
 
@@ -134,7 +129,6 @@ public class Beetle : MonoBehaviour {
         // 禁用物理组件，因为我们使用Transform直接移动
         rb.isKinematic = true;
         rb.velocity = Vector2.zero;
-        Debug.Log("Beetle started falling");
     }
 
     // 可视化检测范围（显示每个光源的检测范围）

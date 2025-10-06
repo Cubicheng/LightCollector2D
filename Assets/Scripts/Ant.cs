@@ -38,12 +38,11 @@ public class Ant : MonoBehaviour {
 
         // 更精确的边界检测
         float distanceFromStart = transform.position.x - startPosition.x;
-        if (Mathf.Abs(distanceFromStart) >= patrolRange) {
+        if (Mathf.Abs(Mathf.Abs(distanceFromStart) - patrolRange)<1e-5) {
             currentDirection *= -1;
             isFacingRight = !isFacingRight;
         }
     }
-
     private void UpdateSpriteDirection() {
         // 只翻转视觉部分，不影响移动逻辑
         if (flipRoot != null) {

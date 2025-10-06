@@ -8,6 +8,10 @@ public class CheckPoint : MonoBehaviour
 
     void Start()
     {
+        RegisterPlayer();
+    }
+
+    public void RegisterPlayer() {
         if (player == null) {
             player = GameObject.FindGameObjectWithTag("Player");
         }

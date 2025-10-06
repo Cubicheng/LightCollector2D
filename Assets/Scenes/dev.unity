@@ -500,11 +500,19 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2652428180357089071, guid: 1dd1ae18afbcffc4b879ef20dfde360b, type: 3}
+      propertyPath: pikaCost
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652428180357089071, guid: 1dd1ae18afbcffc4b879ef20dfde360b, type: 3}
       propertyPath: holyLight
       value: 
       objectReference: {fileID: 1368962527}
     - target: {fileID: 2652428180357089071, guid: 1dd1ae18afbcffc4b879ef20dfde360b, type: 3}
       propertyPath: maxAirJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652428180357089071, guid: 1dd1ae18afbcffc4b879ef20dfde360b, type: 3}
+      propertyPath: lightBallCost
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5133642392717540412, guid: 1dd1ae18afbcffc4b879ef20dfde360b, type: 3}

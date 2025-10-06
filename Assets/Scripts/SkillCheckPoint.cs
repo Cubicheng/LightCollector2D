@@ -39,7 +39,7 @@ public class SkillCheckPoint : MonoBehaviour
                         if (!player.GetComponent<Player>().HasThrowSkill()) {
                             player.GetComponent<Player>().SetHasThrowSkill(true);
                             text.enabled = true;
-                            text.text = "Learned Light Ball Throw!";
+                            text.text = "Learned Light Ball Throw!\nPress K to Throw!";
                         }
                         break;
                     }
@@ -47,7 +47,7 @@ public class SkillCheckPoint : MonoBehaviour
                         if (!player.GetComponent<Player>().HasPikaSkill()) {
                             player.GetComponent<Player>().SetHasPikaSkill(true);
                             text.enabled = true;
-                            text.text = "Mastered Flash ability!";
+                            text.text = "Mastered Flash ability!\nPress J to Flash!";
                         }
                         break;
                     }

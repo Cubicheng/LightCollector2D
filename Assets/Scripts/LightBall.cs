@@ -27,7 +27,6 @@ public class LightBall : MonoBehaviour {
         }
         float facingValue = player.GetComponent<Player>().GetFacingValue();
         float playerXSpeed = player.GetComponent<Player>().GetHorizontalSpeed();
-        Debug.Log("playerXSpeed" + playerXSpeed);
         rb.velocity = new Vector2(facingValue * force / 1.7f + playerXSpeed / 50.0f, force / 1.7f);
 
         // 将自身光源注册到所有甲虫
@@ -38,7 +37,6 @@ public class LightBall : MonoBehaviour {
         foreach (Beetle beetle in allBeetles) {
             if (beetle != null) {
                 beetle.AddLightToDetection(light2d);
-                Debug.Log($"Registered light to beetle: {beetle.name}");
             }
         }
     }
@@ -60,7 +58,6 @@ public class LightBall : MonoBehaviour {
         foreach (Beetle beetle in allBeetles) {
             if (beetle != null) {
                 beetle.RemoveLightFromDetection(light2d);
-                Debug.Log($"Unregistered light from beetle: {beetle.name}");
             }
         }
     }

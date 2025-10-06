@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     public static GameManager Instance;
 
-    private Vector3 currentRespawnPoint;
+    [SerializeField] private Vector3 currentRespawnPoint;
     private GameObject player;
     private List<GameObject> collectableBallList = new List<GameObject>();
     private List<Beetle> beetleList = new List<Beetle>(); // 改为存储Beetle组件而不是GameObject
