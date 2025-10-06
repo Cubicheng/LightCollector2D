@@ -39,6 +39,33 @@ public class Player : MonoBehaviour {
     private bool isHeal = false;
     private bool isDead = false;
 
+    [SerializeField] private bool hasThrowSkill = false;
+    [SerializeField] private bool hasPikaSkill = false;
+
+    public int GetMaxAirJumpCount() {
+        return airJumpCount;
+    }
+
+    public void SetMaxAirJumpCount(int value) {
+        maxAirJumps = value;
+    }
+
+    public bool HasThrowSkill() {
+        return hasThrowSkill;
+    }
+
+    public void SetHasThrowSkill(bool value) {
+        hasThrowSkill = value;
+    }
+
+    public bool HasPikaSkill() {
+        return hasPikaSkill;
+    }
+
+    public void SetHasPikaSkill(bool value) {
+        hasPikaSkill = value;
+    }
+
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     [SerializeField] private Light2D light2d;
@@ -86,6 +113,9 @@ public class Player : MonoBehaviour {
     }
 
     private void Throw() {
+        if (!hasThrowSkill) {
+            return;
+        }
         if (isDead) {
             return;
         }
@@ -98,6 +128,9 @@ public class Player : MonoBehaviour {
     }
 
     private void Pika() {
+        if (!hasPikaSkill) {
+            return;
+        }
         if (isPika || isJump|| isAirJump || isThrow) {
             return;
         }

@@ -17,6 +17,7 @@ public class CheckPoint : MonoBehaviour
         if (other.CompareTag("Player")) {
             player.GetComponent<Player>().SetHeal(true);
             GameManager.Instance.SetRespawnPoint(transform.position);
+            GameManager.Instance.ResetCollectableBall();
         }
     }
     private void OnTriggerExit2D(Collider2D other) {

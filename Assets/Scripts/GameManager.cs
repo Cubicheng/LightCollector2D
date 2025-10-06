@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour {
         ResetAllBeetles();
     }
 
-    private void ResetCollectableBall() {
+    public void ResetCollectableBall() {
         foreach (GameObject obj in collectableBallList) {
             if (obj != null) {
                 obj.gameObject.SetActive(true);
