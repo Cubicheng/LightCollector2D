@@ -13,10 +13,6 @@ public class StartManager : MonoBehaviour
         if (Input.anyKeyDown) {
             player.SetActive(true);
             myCamera.GetComponent<SmoothCameraFollow>().enabled = true;
-            GameObject[] checkPoints = GameObject.FindGameObjectsWithTag("CheckPoint");
-            foreach (GameObject checkPoint in checkPoints) {
-                checkPoint.GetComponent<CheckPoint>().RegisterPlayer();
-            }
         }
     }
 }

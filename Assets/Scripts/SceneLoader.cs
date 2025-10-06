@@ -10,7 +10,18 @@ public static class SceneLoader {
     };
 
     private static Scene targetScene;
+
     public static void GoToNextLevel() {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+        int sceneCount = SceneManager.sceneCountInBuildSettings;
+
+        if (nextSceneIndex >= sceneCount) {
+            nextSceneIndex = 0;
+        }
+
+        targetScene = (Scene)nextSceneIndex;
+        LoadScene(targetScene);
     }
 
     public static void LoadScene(Scene targetScene) {
