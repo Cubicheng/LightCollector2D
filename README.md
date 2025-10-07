@@ -44,3 +44,15 @@ Once the corresponding ability is unlocked:
 Ludum Dare 58: https://ldjam.com/events/ludum-dare/58/$419757
 
 itch: https://shelter132.itch.io/lightcollector2d-master-web
+
+
+
+### Special Thanks to All My Dear Teammates
+
+Project Manager: **Shelter132**
+
+Art and Environmental Art: **YUME0**
+
+Game Planning and Level Design: **fys**
+
+Programing, Music, SFX: **Cubicheng** (Me)
