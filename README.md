@@ -39,7 +39,7 @@ Once the corresponding ability is unlocked:
 
 
 
-### Links
+## Links
 
 Ludum Dare 58: https://ldjam.com/events/ludum-dare/58/$419757
 
@@ -47,7 +47,7 @@ itch: https://shelter132.itch.io/lightcollector2d-master-web
 
 
 
-### Special Thanks to All My Dear Teammates
+## Special Thanks to All My Dear Teammates
 
 Project Manager: **Shelter132**
 
