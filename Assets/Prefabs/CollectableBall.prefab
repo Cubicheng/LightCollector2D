@@ -82,6 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2558094410576916684}
+  light2d: {fileID: 8257163705786027480}
 --- !u!1 &5713207941510350111
 GameObject:
   m_ObjectHideFlags: 0
